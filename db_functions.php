@@ -17,7 +17,32 @@ class DB_Functions {
     function __destruct() {
          
     }
- 
+
+    function log_debug($message) {
+        $path = 'log/debug.log';
+        $time = \date("y-m-d H:i:s");
+        $message = \str_replace("\n", "<br/>", $message);
+        $line = "<div class=\"debug\" title=\"debug\"><b>{$time}&nbsp;</b>{$message}</div>\n";
+        try {
+            $handle = \fopen($path, "a");
+            \fwrite($handle, $line);
+            \fclose($handle);
+        } catch (Exception $e) {
+
+        }
+
+    }
+
+    function get_var_dump($property) {
+        \ob_start();
+        echo '<pre>';
+        \var_dump($property);
+        echo '</pre>';
+        $fluffy_html = \ob_get_contents();
+        \ob_end_clean();
+        return $fluffy_html;
+    }
+
     /**
      * Storing new user
      * returns user details
