@@ -51,6 +51,7 @@ class DB_Functions {
         // insert user into database
         $result = mysql_query("INSERT INTO gcm_users(name, hash, shop_id, gcm_regid, created_at) VALUES('$name', '$hash', $shop_id , '$gcm_regid', NOW())");
         // check for successful store
+        log_debug(get_var_dump($result));
         if ($result) {
             // get user details
             $id = mysql_insert_id(); // last inserted id
