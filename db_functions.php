@@ -18,30 +18,7 @@ class DB_Functions {
          
     }
 
-    function log_debug($message) {
-        $path = 'log/debug.log';
-        $time = \date("y-m-d H:i:s");
-        $message = \str_replace("\n", "<br/>", $message);
-        $line = "<div class=\"debug\" title=\"debug\"><b>{$time}&nbsp;</b>{$message}</div>\n";
-        try {
-            $handle = \fopen($path, "a");
-            \fwrite($handle, $line);
-            \fclose($handle);
-        } catch (Exception $e) {
 
-        }
-
-    }
-
-    function get_var_dump($property) {
-        \ob_start();
-        echo '<pre>';
-        \var_dump($property);
-        echo '</pre>';
-        $fluffy_html = \ob_get_contents();
-        \ob_end_clean();
-        return $fluffy_html;
-    }
 
     /**
      * Storing new user
@@ -51,7 +28,6 @@ class DB_Functions {
         // insert user into database
         $result = mysql_query("INSERT INTO gcm_users(name, hash, shop_id, gcm_regid, created_at) VALUES('$name', '$hash', $shop_id , '$gcm_regid', NOW())");
         // check for successful store
-        log_debug(get_var_dump($result));
         if ($result) {
             // get user details
             $id = mysql_insert_id(); // last inserted id
